@@ -1,4 +1,3 @@
-import 'package:covid_app/content/models/users.dart';
 import 'package:covid_app/content/utils/auth.dart';
 import 'package:covid_app/content/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,12 +17,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<Users?>.value(
-      value: AuthService().user,
-      initialData: null,
-      child: MaterialApp(
-        home: Wrapper(),
-      ),
+    return MaterialApp(
+      home: Wrapper(),
     );
   }
 }

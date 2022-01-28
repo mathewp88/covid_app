@@ -1,6 +1,8 @@
+import 'package:covid_app/content/models/google_sign.dart';
 import 'package:covid_app/content/utils/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignIn extends StatefulWidget {
   SignIn({Key? key}) : super(key: key);
@@ -10,32 +12,63 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        elevation: 0.0,
-        title: Text("Sign In"),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: 20.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      'Google',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ),
+                    Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              FutureBuilder(
+                future: AuthService.initializeFirebase(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error initializing Firebase');
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    return GoogleSignInButton();
+                  }
+                  return CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.white,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
-      body: Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-          child: TextButton(
-            child: Text("Sign In Anonymously"),
-            onPressed: () async {
-              dynamic result = await _auth.signInAnon();
-              if (result == null) {
-                print("Error Signing In");
-              } else {
-                print("Signed In");
-                print(result);
-              }
-            },
-          )),
     );
   }
 }

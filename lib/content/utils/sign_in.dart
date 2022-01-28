@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
                   children: [
                     SizedBox(height: 20),
                     Text(
-                      'Google',
+                      'Covid Vaccine',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,

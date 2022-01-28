@@ -20,9 +20,51 @@ class Home extends StatelessWidget {
           onPressed: () async {
             User? user = await AuthService.signInWithGoogle(context);
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => UserInfoScreen(user: user!)),
+              MaterialPageRoute(
+                  builder: (context) => UserInfoScreen(user: user!)),
             );
           },
+        ),
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Search Using District",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Search Using Pincode",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Favourites",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            SizedBox(height: 40),
+          ],
         ),
       ),
     );

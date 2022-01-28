@@ -1,3 +1,4 @@
+import 'package:covid_app/content/screens/home.dart';
 import 'package:covid_app/content/utils/auth.dart';
 import 'package:covid_app/content/utils/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,14 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
         elevation: 0,
         backgroundColor: Colors.black,
         title: Text("Acount"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Home()),
+            );
+          },
+        ),
       ),
       body: SafeArea(
         child: Padding(

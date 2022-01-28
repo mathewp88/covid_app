@@ -3,7 +3,7 @@ import 'package:covid_app/content/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:covid_app/google_sign.dart';
+import 'package:covid_app/content/google_sign.dart';
 import 'package:covid_app/content/utils/auth.dart';
 
 class Wrapper extends StatelessWidget {

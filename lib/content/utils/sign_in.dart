@@ -1,4 +1,4 @@
-import 'package:covid_app/google_sign.dart';
+import 'package:covid_app/content/google_sign.dart';
 import 'package:covid_app/content/utils/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

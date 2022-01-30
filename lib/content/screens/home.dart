@@ -1,10 +1,16 @@
+import 'package:covid_app/content/screens/favourites.dart';
+import 'package:covid_app/content/sign_in/district_sign_in.dart';
 import 'package:covid_app/content/screens/userinfoscreen.dart';
+import 'package:covid_app/content/sign_in/pincode_sign_in.dart';
 import 'package:covid_app/content/utils/auth.dart';
+import 'package:covid_app/content/utils/cowin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
+
+  CowinData cowinData = new CowinData();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,11 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => DistrictSearch()),
+                );
+              },
               child: Text(
                 "Search Using District",
                 style: TextStyle(
@@ -43,7 +53,11 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 20),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => PinSearch()),
+                );
+              },
               child: Text(
                 "Search Using Pincode",
                 style: TextStyle(
@@ -54,7 +68,11 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 20),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Favourites()),
+                );
+              },
               child: Text(
                 "Favourites",
                 style: TextStyle(

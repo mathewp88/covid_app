@@ -1,6 +1,6 @@
 import 'package:covid_app/content/screens/home.dart';
 import 'package:covid_app/content/utils/auth.dart';
-import 'package:covid_app/content/utils/sign_in.dart';
+import 'package:covid_app/content/sign_in/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

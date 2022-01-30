@@ -5,13 +5,18 @@ import 'package:flutter/material.dart';
 
 class DistrictSearch extends StatefulWidget {
   DistrictSearch({Key? key}) : super(key: key);
+  static String dist = "";
+  static String stat = "";
 
   @override
   State<DistrictSearch> createState() => _DistrictSearchState();
 }
 
 class _DistrictSearchState extends State<DistrictSearch> {
-  Result result = Result();
+  final distController = TextEditingController();
+  final stateController = TextEditingController();
+
+  final CowinData cowinData = CowinData();
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +41,18 @@ class _DistrictSearchState extends State<DistrictSearch> {
           children: [
             SizedBox(height: 40),
             TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.blue, width: 2.0),
-                  ),
-                  label: Text(
-                    "Enter State Name",
-                    style: TextStyle(color: Colors.blue),
-                  ),
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.blue, width: 2.0),
                 ),
-                onSubmitted: (text) {
-                  result.getDistrict(text.toLowerCase());
-                }),
+                label: Text(
+                  "Enter State Name",
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+              controller: distController,
+            ),
             SizedBox(height: 20),
             TextField(
               style: TextStyle(color: Colors.white),
@@ -62,14 +65,24 @@ class _DistrictSearchState extends State<DistrictSearch> {
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
-              onSubmitted: (text) {
-                result.getState(text.toLowerCase());
+              controller: stateController,
+            ),
+            SizedBox(height: 60),
+            TextButton(
+              onPressed: () {
+                DistrictSearch.stat = stateController.text.toLowerCase();
+                DistrictSearch.dist = distController.text.toLowerCase();
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => Result()),
                 );
               },
+              child: Text(
+                "Search",
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
             ),
-            SizedBox(height: 60),
           ],
         ),
       ),

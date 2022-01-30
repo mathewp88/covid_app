@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 class CowinData {
-  late int state_id = 0;
-  late int district_id = 0;
+  int state_id = 0;
+  int district_id = 0;
 
-  late final AppointmentList;
+  var AppointmentList;
 
   var dateParse = DateTime.parse(DateTime.now().toString());
 
@@ -67,6 +67,7 @@ class CowinData {
       AppointmentList = jsonDecode(data);
       try {
         print("Appointment List Received");
+        print(AppointmentList);
         state_id = 0;
         district_id = 0;
       } catch (e) {

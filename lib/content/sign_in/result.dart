@@ -8,13 +8,15 @@ import 'package:http/http.dart';
 class Result extends StatefulWidget {
   Result({Key? key}) : super(key: key);
 
-  DistrictSearch districtSearch = new DistrictSearch();
-  late int state_id = 0;
-  late int district_id = 0;
-  late final state;
-  late final district;
+  @override
+  State<Result> createState() => _ResultState();
+}
 
-  late var AppointmentList = null;
+class _ResultState extends State<Result> {
+  late int state_id;
+  late int district_id;
+
+  var AppointmentList;
 
   var dateParse = DateTime.parse(DateTime.now().toString());
 
@@ -54,6 +56,7 @@ class Result extends StatefulWidget {
           if (district_name ==
               districtList['districts'][i]['district_name'].toLowerCase()) {
             district_id = districtList['districts'][i]['district_id'];
+            getAppointmentList();
           }
         }
       } catch (e) {
@@ -64,25 +67,16 @@ class Result extends StatefulWidget {
     }
   }
 
-  //Get District
-  void getDistrict(String dist) {
-    district = dist;
-  }
-
-  //Get State
-  void getState(String stat) {
-    state = stat;
-  }
-
   //Get Appointment From District
   Future<void> getAppointmentList() async {
     Response response = await get(Uri.parse(
-        "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district_id}&date=${dateParse.day}-${dateParse.month}-${dateParse.year}"));
+        "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=300&date=${dateParse.day}-${dateParse.month}-${dateParse.year}"));
     if (response.statusCode == 200) {
       String data = response.body;
       AppointmentList = jsonDecode(data);
       try {
         print("Appointment List Received");
+        print(AppointmentList);
         state_id = 0;
         district_id = 0;
       } catch (e) {
@@ -94,15 +88,11 @@ class Result extends StatefulWidget {
   }
 
   @override
-  State<Result> createState() => _ResultState();
-}
-
-class _ResultState extends State<Result> {
-  @override
   void initState() {
-    Result().getStateList(Result().state);
-    Result().getDistrictList(Result().district);
-    Result().getAppointmentList();
+    getStateList(DistrictSearch.dist);
+    getDistrictList(DistrictSearch.stat);
+    print(DistrictSearch.dist);
+    getAppointmentList();
     super.initState();
   }
 
@@ -126,9 +116,7 @@ class _ResultState extends State<Result> {
       ),
       body: Expanded(
         child: ListView.builder(
-          itemCount: Result().AppointmentList == null
-              ? 0
-              : Result().AppointmentList['centers'].length,
+          itemCount: AppointmentList['centers'].length,
           itemBuilder: (context, index) {
             return Card(
               color: Colors.black,
@@ -139,7 +127,7 @@ class _ResultState extends State<Result> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Note Heading",
+                      AppointmentList['centers'][index]['name'],
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
